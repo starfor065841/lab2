@@ -5,51 +5,53 @@
 #include"class.h"
 using namespace std;
 
-int main() {
+int main()
+{
 
-	ofstream infile("infile",ios::out);
-	if(!infile){
-		cerr << "Failed opening" << endl;
+	Rate rate;	
+	int k,R_A,R_B;
+	float score;
+
+	ofstream out("infile",ios::out);
+
+	if(!out)
+	{
+		cerr << "Failed" << endl;
 		exit(1);
 	}
-	ifstream read("infile",ios::in);
-	if(!read){
-		cerr << "Failed opening" << endl;
+
+	cin >> k >> R_A >> R_B;
+	out << k << " " << R_A << " " << R_B << endl;
+	while(cin >> score)
+	{
+		out << score << endl;
+	}
+
+	ifstream in("infile",ios::in);
+	if(!in)
+	{
+		cerr << "Failed" << endl;
 		exit(1);
 	}
-
-	Rate A;
-	int a,b,c;
-	float d[6];
-	int i;
-
-	cin >> a >> b >> c;
-	infile << a << "\t" << b << "\t" << c << endl;
-	for(i=0;i<6;++i){
-	cin >> d[i];
-	infile << d[i] << endl;
-	}
-
-
-	read >> a >> b >> c;
-	A.set(a,b,c);
-
-	for(i=0;i<6;++i){
-	read >> d[i];
-	A.score[i] = d[i];
-	}
-
+	
 	ofstream outfile("outfile",ios::out);
-	if(!outfile){
-		cerr << "Failed opening" << endl;
+
+	if(!outfile)
+	{
+		cerr << "Failed" << endl;
 		exit(1);
 	}
-	outfile << A.getR_A() << "\t" << A.getR_B() << endl;
-
-	for(i=0;i<6;++i){
-	outfile << A.getA(A.score[i]) << "\t" << A.getB(A.score[i]) << endl;
-	A.set(a,A.getA(A.score[i]),A.getB(A.score[i]));
+	in >> k >> R_A >> R_B;
+	rate.set(k,R_A,R_B);
+	outfile << rate.getR_A() << " " << rate.getR_B() << endl;
+	rate.setE_A();
+	rate.setE_B();
+	while(in >> score)
+	{
+		rate.getA(score);
+		rate.getB(score);
+		outfile << rate.getA(score) << " " << rate.getB(score) << endl;
 	}
-	return 0;
 
-	}
+
+}

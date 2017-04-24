@@ -9,7 +9,6 @@ public:
 	float setE_B();
 	float getA(float score);
 	float getB(float score);
-	float score[6];
 private:
 	int k;
 	int R_A;
